@@ -8,55 +8,6 @@
     android:orientation="horizontal"
     android:id="@+id/relativelayout">
 
-    <!-- + means first-time definition-->
-    <!-- @ means referring to an XML object-->
-    <!-- @+ means first-time XML object definition-->
-    <!-- weight states how much remaining space
-         on a given line the object takes up.
-         If weight>0 and all other object weights
-         are 0, this object takes all the free space-->
-    <!--layout_width is irrelevant in some cases-->
-    <!-- wrap_content - as large as view contents-->
-    <!-- @string tries to find a resource named
-          edit_message, which is a string object-->
-
-    <!--android:layout_weight="1"-->
-    <!--weights cannot be used in a grid layout-->
-
-    <!--
-    <EditText android:id="@+id/edit_message"
-        android:layout_weight="1"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/edit_message"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_send"
-        android:onClick="sendMessage"
-        android:layout_marginRight="21dp"
-        android:layout_marginEnd="21dp"
-        android:layout_alignBaseline="@+id/edit_message"
-        android:layout_alignBottom="@+id/edit_message"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:text="AUGH"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:id="@+id/button2"
-        android:onClick="altMessage"
-        android:layout_below="@+id/edit_message"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button" />
-    -->
-
     <ImageView
         android:layout_width="32dp"
         android:layout_height="400dp"
