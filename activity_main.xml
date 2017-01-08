@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:id="@+id/relativelayout">
+
+    <!-- + means first-time definition-->
+    <!-- @ means referring to an XML object-->
+    <!-- @+ means first-time XML object definition-->
+    <!-- weight states how much remaining space
+         on a given line the object takes up.
+         If weight>0 and all other object weights
+         are 0, this object takes all the free space-->
+    <!--layout_width is irrelevant in some cases-->
+    <!-- wrap_content - as large as view contents-->
+    <!-- @string tries to find a resource named
+          edit_message, which is a string object-->
+
+    <!--android:layout_weight="1"-->
+    <!--weights cannot be used in a grid layout-->
+
+    <!--
+    <EditText android:id="@+id/edit_message"
+        android:layout_weight="1"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/edit_message"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_send"
+        android:onClick="sendMessage"
+        android:layout_marginRight="21dp"
+        android:layout_marginEnd="21dp"
+        android:layout_alignBaseline="@+id/edit_message"
+        android:layout_alignBottom="@+id/edit_message"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="AUGH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/button2"
+        android:onClick="altMessage"
+        android:layout_below="@+id/edit_message"
+        android:layout_alignLeft="@+id/button"
+        android:layout_alignStart="@+id/button" />
+    -->
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="400dp"
+        app:srcCompat="@mipmap/blue"
+        android:id="@+id/timebar"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/left"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/upp"
+        android:alpha="0"
+        android:layout_above="@+id/down" />
+
+    <Button
+        android:text="Right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/right"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/upp"
+        android:alpha="0"
+        android:layout_above="@+id/down" />
+
+    <Button
+        android:text="Up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/upp"
+        android:layout_above="@+id/timebar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:alpha="0"
+        android:layout_alignParentTop="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ham"
+        android:layout_marginBottom="61dp"
+        android:tag="wall"
+        android:id="@+id/bugman"
+        android:layout_alignBottom="@+id/timebar"
+        android:layout_alignLeft="@+id/cake"
+        android:layout_alignStart="@+id/cake" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/chip_down"
+        android:id="@+id/cake"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/down"
+        android:alpha="0"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/timebar" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/shoe"
+        android:layout_alignTop="@+id/cake"
+        android:layout_alignLeft="@+id/right"
+        android:layout_alignStart="@+id/right"
+        android:id="@+id/shoe" />
+
+    <TextView
+        android:text=
+            "Press the sides of the screen to move around\nGet ham for points, and shoes for more steps\nWhen you run out of steps, the game ends."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:id="@+id/tutorial"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/upp" />
+
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="4"
+        android:scaleY="4"
+        android:id="@+id/score_label"
+        android:layout_below="@+id/upp"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
