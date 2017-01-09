@@ -11,6 +11,10 @@ So apparently I have to actually *download* Git onto the machine I'm using to ac
 Why don't I just download Git then? Due to "certain circumstances", I will only upload core source files.
 I'm fairly sure that just raises more questions anyway, but maybe in due time things will change.
 
+## How can I run the game?
+I've now included the built .apk file from the complete source project, so all you have to do is put said .apk file into your Android device (I usually place it in the Downloads folder), access the file through a File Manager app, and download the game onto your device.
+If you have certain security features turned on, you may need to toggle off the option about downloading apps from unknown sources in Settings.
+
 ## Wouldn't starting the project using Git initially solve some of the existing problems?
 In a sense, yes. But because this is a free account, all repositories must be Public. 
 As a result, keeping projects under wraps can be a bit of a pickle, hence the offline work.
