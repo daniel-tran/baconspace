@@ -1,6 +1,7 @@
 package com.plectrum.heinrich.baconspace;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -11,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.Button;
 import android.os.Handler;
 
-//import com.plectrum.heinrich.baconspace.AltActivity;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,21 +20,31 @@ public class MainActivity extends AppCompatActivity {
     final float inc = 25f;
 
     //How much to take off the time bar per step, as a percentile
-    final float time_inc = 0.01f;
+    final float time_inc = 0.02f;
 
-    final float full_scale = 1f;
-    float scale = full_scale;
-    //Determines whether the time bar has ever exceeded full_scale
-    boolean overscale = false;
+    //Tells if the player movement should pause (false: player movement is allowed)
+    boolean hold = false;
 
     //How close objects need to be to be considered "collided", measured in pixels(?)
-    final float collideDistance = 100f;
+    final float collideDistance = 50f;
 
     //Millisecond time interval between press-and-hold movements
     final int interval = 150;
 
-    //How much to add to the time bar when the shoe is collected, as a percentile
-    final double shoe_inc = 0.05f;
+	//States if the game needs to restart
+    boolean restart = true;
+
+	//Holds the information for each object type
+    ArrayList<ImageView> boots = new ArrayList<>();
+    ArrayList<ImageView> goals = new ArrayList<>();
+    ArrayList<ImageView> threats = new ArrayList<>();
+
+	//Stores the images for each object type
+    static int img_boot = R.mipmap.shoe;
+    static int img_goal = R.mipmap.ham;
+    static int img_threat = R.mipmap.bomb;
+    static int[] img_player = {R.mipmap.chip_down, R.mipmap.chip_up,
+            R.mipmap.chip_left, R.mipmap.chip_right};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +54,47 @@ public class MainActivity extends AppCompatActivity {
         initialise();
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus){
+        super.onWindowFocusChanged(hasFocus);
+
+        /*
+         * Position randomisation cannot be called in initialise() because the screen has
+         * not been drawn yet. As such, the game needs to wait until this system method
+         * is internally called before getWidth() and getHeight() are accessible.
+         *
+         * Inspired by Sana's solution at
+         * http://stackoverflow.com/questions/3591784/getwidth-and-getheight-of-view-returns-0
+         */
+        if (restart) {
+            restart = false;
+
+            ImageView player = get_player();
+
+            RelativeLayout rl = get_layout();
+
+            //Randomise player and goal positions within the layout bounds
+            PlacementActivity.random_position(player, rl.getWidth(), rl.getHeight(), inc);
+            PlacementActivity.random_position(boots, rl.getWidth(), rl.getHeight(), inc);
+            PlacementActivity.random_position(goals, rl.getWidth(), rl.getHeight(), inc);
+            PlacementActivity.random_position(threats, rl.getWidth(), rl.getHeight(), inc);
+        }
+
+        //Prevent movement build-up when holding buttons and unfocussing the app
+        if (hasFocus){
+            hold = false;
+        }else{
+            hold = true;
+        }
+    }
+
     /*
      * Initialises the game state as a new game
      */
     public void initialise(){
+
+        //Indicate a restart for other functions to use
+        restart = true;
 
         //Sets the tutorial text to be visible again
         TextView tutorial = get_tutorial();
@@ -54,16 +102,10 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView player = get_player();
 
-        RelativeLayout rl = get_layout();
-
-        ImageView get = get_goal();
-
         final ImageView timebar = get_timebar();
 
-        ImageView shoe = get_shoe();
-
-        player.setImageResource(R.mipmap.chip_down);
-
+        //Set default player sprite when spawning
+        player.setImageResource(player_down());
 
         //Set up all the buttons and enable press-and-hold functionality
         Button down_button = (Button) findViewById(R.id.down);
@@ -78,20 +120,154 @@ public class MainActivity extends AppCompatActivity {
         Button right_button = (Button) findViewById(R.id.right);
         press_and_hold(right_button, "right");
 
-
-        //Randomise player and goal positions within the layout bounds
-        PlacementActivity.random_position(player, rl.getWidth(), rl.getHeight(), inc);
-        PlacementActivity.random_position(get, rl.getWidth(), rl.getHeight(), inc);
-        PlacementActivity.random_position(shoe, rl.getWidth(), rl.getHeight(), inc);
+        //Set shoe and goal allocations for future use
+        set_shoes();
+        set_goals();
+        set_threats();
 
         //Set up the timer bar
         timebar.setScaleY(1f);
         timebar.setVisibility(View.VISIBLE);
-        scale = full_scale;
-        overscale = false;
+        StatsActivity.restore_scale();
+        StatsActivity.timebar_recolour(timebar);
 
         //Default the score label for a new game
         set_score_label(0);
+    }
+
+    /*
+     * Sets the shoe sprite to the given parameter.
+     * Does nothing when already set to img.
+     */
+    public static void set_shoe_img(int img){
+        if (img_boot != img) {
+            img_boot = img;
+        }
+    }
+
+    /*
+     * Sets the goal sprite to the given parameter.
+     * Does nothing when already set to img.
+     */
+    public static void set_goal_img(int img){
+        if (img_goal != img){
+            img_goal = img;
+        }
+    }
+
+    /*
+     * Sets the player sprite sheet to the given parameter.
+     * Does nothing when already set to img.
+     */
+    public static void set_player_img(int[] img){
+        if (img_player != img){
+            img_player = img;
+        }
+    }
+
+    public static void set_threat_img(int img){
+        if (img_threat != img){
+            img_threat = img;
+        }
+    }
+
+    /*
+     * Assigns the stored shoe sprite to the necessary targets.
+     */
+    public void update_shoe_img(){
+        for (int i = 0; i < boots.size(); i++){
+            boots.get(i).setImageResource(img_boot);
+        }
+    }
+
+    /*
+     * Assigns the stored goal sprite to the necessary targets.
+     */
+    public void update_goal_img(){
+        for (int i = 0; i < goals.size(); i++){
+            goals.get(i).setImageResource(img_goal);
+        }
+    }
+
+    /*
+     * Assigns the stored threat sprite to the necessary targets.
+     */
+    public void update_threat_img(){
+        for (int i = 0; i < threats.size(); i++){
+            threats.get(i).setImageResource(img_threat);
+        }
+    }
+
+    /*
+     * Sets the shoes in use. Only runs when source is empty.
+     */
+    public void set_shoes(){
+        if (boots.size() <= 0){
+
+            //Hard mode shoes
+            boots.add((ImageView) findViewById(R.id.shoe));
+
+            if (StatsActivity.get_difficulty() != StatsActivity.stressful()) {
+
+                //Normal mode extra shoes
+                boots.add((ImageView) findViewById(R.id.shoe2));
+                boots.add((ImageView) findViewById(R.id.shoe3));
+
+                if (StatsActivity.get_difficulty() != StatsActivity.normal()) {
+
+                    //Easy mode extra shoes
+                    boots.add((ImageView) findViewById(R.id.shoe4));
+                    boots.add((ImageView) findViewById(R.id.shoe5));
+                }
+            }
+
+            update_shoe_img();
+        }
+    }
+
+    /*
+     * Sets the goals in use. Only runs when source is empty.
+     */
+    public void set_goals(){
+        if (goals.size() <= 0){
+
+            //Hard mode goals
+            goals.add((ImageView) findViewById(R.id.bugman));
+
+            if (StatsActivity.get_difficulty() != StatsActivity.stressful()) {
+
+                //Normal mode extra goals
+                goals.add((ImageView) findViewById(R.id.goal2));
+                if (StatsActivity.get_difficulty() != StatsActivity.normal()) {
+
+                    //Easy mode extra goals
+                    goals.add((ImageView) findViewById(R.id.goal3));
+                }
+            }
+
+            update_goal_img();
+        }
+    }
+
+    /*
+     * Sets the threats in use. Only runs when source is empty.
+     */
+    public void set_threats(){
+        if (threats.size() <= 0){
+            threats.add((ImageView) findViewById(R.id.threat1));
+
+            if (StatsActivity.get_difficulty() != StatsActivity.easy()){
+                threats.add((ImageView) findViewById(R.id.threat2));
+                threats.add((ImageView) findViewById(R.id.threat3));
+
+                if (StatsActivity.get_difficulty() != StatsActivity.normal()){
+                    threats.add((ImageView) findViewById(R.id.threat4));
+                    threats.add((ImageView) findViewById(R.id.threat5));
+                }
+            }
+        }
+
+        update_threat_img();
     }
 
     /*
@@ -113,39 +289,56 @@ public class MainActivity extends AppCompatActivity {
 
         RelativeLayout rl = get_layout();
 
-        ImageView bugman = get_goal();
-
-        ImageView shoe = get_shoe();
-
         keep_inbound(cake, rl);
 
-        double dist = PlacementActivity.check_collision(cake, bugman);
+        //Updates other items and check if player has collected them
+        collection_update(cake, boots, rl.getWidth(), rl.getHeight(), "boots");
+        collection_update(cake, goals, rl.getWidth(), rl.getHeight(), "goals");
+        collection_update(cake, threats, rl.getWidth(), rl.getHeight(), "threats");
 
-        //Print out if both are close enough (measured in pixels?)
-        if (dist <= collideDistance){
-            PlacementActivity.random_position(bugman, rl.getWidth(), rl.getHeight(), inc);
-
-            StatsActivity.update_score();
-
-            set_score_label(StatsActivity.get_score());
-        }
-
-        //Get more steps when the shoe is obtained
-        double shoe_dist = PlacementActivity.check_collision(cake, shoe);
-        if (shoe_dist <= collideDistance){
-            PlacementActivity.random_position(shoe, rl.getWidth(), rl.getHeight(), inc);
-            scale += shoe_inc;
-
-            StatsActivity.update_shoe_count();
-        }
-
-        if (scale > full_scale){
-            overscale = true;
-        }
-
-        StatsActivity.update_steps();
+        //Performs some maintenance operations in regards to scale status
+        StatsActivity.check_scale();
 
         timebar_update(time_inc);
+    }
+
+    /*
+     * This method handles collision checking between the user and a set of items, under the
+     * assumption that they are all ImageViews.
+     *
+     * When an item is collected, its position is randomised within the specified width and height
+     * parameters and activates an additional module based on the given effect.
+     * (an effect that matches no valid entry will do nothing)
+     */
+    public void collection_update(ImageView user, ArrayList<ImageView> items, int width, int height, String effect){
+        for (int i = 0; i < items.size(); i++){
+            double dist = PlacementActivity.check_collision(user, items.get(i));
+
+            //Check for a collision
+            if (dist <= collideDistance){
+
+                PlacementActivity.random_position(items.get(i), width, height, inc);
+
+                //This is where specific effects are run from
+                switch (effect) {
+                    case "goals":
+                        //Adds to score when the ham is obtained
+                        StatsActivity.update_score();
+                        set_score_label(StatsActivity.get_score());
+                        break;
+
+                    case "boots":
+                        //Get more steps when the shoe is obtained
+                        StatsActivity.increase_scale();
+                        StatsActivity.update_shoe_count();
+                        break;
+                    case "threats":
+                        StatsActivity.update_threat();
+                        set_score_label(StatsActivity.get_score());
+                        break;
+                }
+            }
+        }
     }
 
     /*
@@ -165,8 +358,15 @@ public class MainActivity extends AppCompatActivity {
     /*
      * Gets the goal object
      */
-    public ImageView get_goal(){
-        return (ImageView) findViewById(R.id.bugman);
+    public ArrayList<ImageView> get_goal(){
+        return goals;
+    }
+
+    /*
+     * Gets the shoe object
+     */
+    public ArrayList<ImageView> get_shoe(){
+        return boots;
     }
 
     /*
@@ -174,13 +374,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public ImageView get_timebar(){
         return (ImageView) findViewById(R.id.timebar);
-    }
-
-    /*
-     * Gets the shoe object
-     */
-    public ImageView get_shoe(){
-        return (ImageView) findViewById(R.id.shoe);
     }
 
     /*
@@ -222,21 +415,34 @@ public class MainActivity extends AppCompatActivity {
         ImageView obj = get_player();
 
         if (x > 0){
+            //Move right
             obj.setX(obj.getX() + inc);
-            obj.setImageResource(R.mipmap.chip_right);
+            obj.setImageResource(player_right());
         }else if (x < 0){
+            //Move left
             obj.setX(obj.getX() - inc);
-            obj.setImageResource(R.mipmap.chip_left);
+            obj.setImageResource(player_left());
         }
 
         if (y < 0){
+            //Move down
             obj.setY(obj.getY() + inc);
-            obj.setImageResource(R.mipmap.chip_down);
+            obj.setImageResource(player_down());
         }else if (y > 0){
+            //move up
             obj.setY(obj.getY() - inc);
-            obj.setImageResource(R.mipmap.chip_up);
+            obj.setImageResource(player_up());
         }
     }
+
+    /*
+     * These methods are synonyms for accessing the player
+     * sprite array in a more intuitive way.
+     */
+    public int player_down(){ return img_player[0];}
+    public int player_up(){ return img_player[1];}
+    public int player_left(){ return img_player[2];}
+    public int player_right(){ return img_player[3];}
 
     /*
      * Moves down and updates game state
@@ -279,11 +485,12 @@ public class MainActivity extends AppCompatActivity {
      */
     public void timebar_update(float time){
         ImageView timebar = get_timebar();
-        if (scale > 0){
-            scale -= time;
-            timebar.setScaleY(scale);
+        if (StatsActivity.get_scale() > 0){
+            StatsActivity.adjust_scale(-time);
+            timebar.setScaleY(StatsActivity.get_scale());
+            StatsActivity.timebar_recolour(timebar);
         }
-        if (scale <= 0){
+        if (StatsActivity.get_scale() <= 0){
             timebar.setVisibility(View.INVISIBLE);
             screen(AltActivity.class);
             initialise();
@@ -398,10 +605,11 @@ public class MainActivity extends AppCompatActivity {
                      * Ensures that a new game forgets the old actions.
                      * Repeated actions only occur when a movement has been
                      * made.
-                     * Overscale ensures that press-and-hold still
-                     * operates as normal when the time bar is above 100%.
+                     *
+                     * !hold ensures that unfocussing the app will cancel existing
+                     * actions, defaulting movement to nothing
                      */
-                    if (scale <= (full_scale - time_inc*2) || overscale) {
+                    if (!hold && StatsActivity.has_made_move(time_inc)) {
                         handle.postDelayed(this, interval);
                     }
                 }

@@ -21,11 +21,18 @@ public class AltActivity extends AppCompatActivity {
      * Allocates values from MainActivity to TextViews that display said values
      */
     public void update_stats(){
+		
+		//Displays updated TextViews with end game information
         update_textview(R.id.score, StatsActivity.get_score());
         update_textview(R.id.steps, StatsActivity.get_steps());
         update_textview(R.id.shoes, StatsActivity.get_shoe_count());
+        update_textview(R.id.point_mult, StatsActivity.get_point_multiplier());
 
+        //Clears the stats for another game
         StatsActivity.clear_stats();
+
+        //Display the difficulty in use and other non-game-related stats
+        update_textview(R.id.difficulty, StatsActivity.get_difficulty_string());
     }
 
     /*
@@ -34,5 +41,13 @@ public class AltActivity extends AppCompatActivity {
     public void update_textview(int id, int num){
         TextView item = (TextView) findViewById(id);
         item.setText(String.valueOf(num));
+    }
+
+    /*
+     * Updates a TextView of a given id and directly updates its text as a String.
+     */
+    public void update_textview(int id, String str){
+        TextView item = (TextView) findViewById(id);
+        item.setText(str);
     }
 }
