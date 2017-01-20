@@ -3,6 +3,8 @@ package com.plectrum.heinrich.baconspace;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import java.util.ArrayList;
+import android.widget.ImageView;
 
 /*
  * This class contains methods related to object placement and collision detection.
@@ -41,6 +43,17 @@ public class PlacementActivity extends AppCompatActivity {
             obj.setY(margin);
         }
     }
+
+    /*
+     * Randomises a position for all objects in ar, where all items are ImageViews.
+     */
+    public static void random_position(ArrayList<ImageView> ar, int width, int height, float margin){
+
+        for (int i = 0; i < ar.size(); i++){
+            random_position(ar.get(i), width, height, margin);
+        }
+    }
+
 
     /*
      * Checks for proximity between player and obj.
