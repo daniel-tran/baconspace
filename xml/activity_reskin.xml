@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_reskin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.plectrum.heinrich.baconspace.ReskinActivity">
+
+    <RadioGroup
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:id="@+id/boot_group"
+        android:layout_marginBottom="0dp"
+        android:layout_above="@+id/radioGroup"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/radioGroup"
+        android:layout_alignEnd="@+id/radioGroup">
+
+
+        <RadioButton
+            android:text="Shoe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/opt_shoe"
+            android:onClick="opt_shoe"
+            android:checked="false"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp" />
+
+        <RadioButton
+            android:text="Flipper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="-30dp"
+            android:id="@+id/opt_flipper"
+            android:onClick="opt_flipper" />
+
+        <RadioButton
+            android:text="Skates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="-30dp"
+            android:id="@+id/opt_skates"
+            android:onClick="opt_skates" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/shoe"
+            android:id="@+id/imageView"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="-90dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/flipper"
+            android:id="@+id/imageView2"
+            android:layout_marginTop="-40dp"
+            android:layout_marginBottom="-40dp"
+            android:layout_marginLeft="160dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/skates"
+            android:id="@+id/imageView3"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="-90dp"
+            android:layout_marginLeft="270dp" />
+
+    </RadioGroup>
+
+    <TextView
+        android:text="Boot Selection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:scaleX="2"
+        android:scaleY="2" />
+
+    <TextView
+        android:text="Goal Selection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:textStyle="bold"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:layout_marginTop="-12dp"
+        android:layout_marginBottom="1dp"
+        android:layout_above="@+id/radioGroup4"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup"
+        android:layout_marginBottom="21dp"
+        android:layout_above="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:text="Arbitrary\nHumanoid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/opt_humanoid"
+            android:onClick="opt_humanoid"
+            android:checked="false"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="70dp"/>
+
+        <RadioButton
+            android:text="Chompski"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="-30dp"
+            android:id="@+id/opt_chomper"
+            android:onClick="opt_chomper" />
+
+        <RadioButton
+            android:text="Mr. Tank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="-30dp"
+            android:id="@+id/opt_tank"
+            android:onClick="opt_tank" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/chip_down"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="-80dp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/chomp_down"
+            android:layout_marginTop="-40dp"
+            android:layout_marginLeft="160dp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/tank_down"
+            android:layout_marginTop="-40dp"
+            android:layout_marginLeft="270dp"
+            />
+
+    </RadioGroup>
+
+    <TextView
+        android:text="Player Selection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:textStyle="bold"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:layout_marginTop="140dp"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
+
+    <TextView
+        android:text="Threat Selection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:textStyle="bold"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:layout_marginTop="-11dp"
+        android:layout_marginBottom="75dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2" />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginBottom="18dp"
+        android:id="@+id/radioGroup4"
+        android:layout_above="@+id/textView5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:text="Ham"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/opt_ham"
+            android:onClick="opt_ham"
+            android:checked="false"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp" />
+
+        <RadioButton
+            android:text="Hotdog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="-30dp"
+            android:id="@+id/opt_hotdog"
+            android:onClick="opt_hotdog" />
+
+        <RadioButton
+            android:text="Chicken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="-30dp"
+            android:id="@+id/opt_chicken"
+            android:onClick="opt_chicken" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/ham"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="-80dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/hotdog"
+            android:layout_marginTop="-40dp"
+            android:layout_marginLeft="160dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/drumstick"
+            android:layout_marginTop="-40dp"
+            android:layout_marginLeft="270dp" />
+
+    </RadioGroup>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginTop="400dp"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/bomb"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="-80dp"
+            android:layout_marginStart="40dp"
+            android:id="@+id/imageView12"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/fire"
+            android:layout_marginTop="-40dp"
+            android:layout_marginLeft="-160dp"
+            android:layout_marginStart="160dp"
+            android:id="@+id/imageView13" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@mipmap/spider"
+            android:layout_marginTop="-40dp"
+            android:layout_marginLeft="-270dp"
+            android:layout_marginStart="270dp"
+            android:id="@+id/imageView14" />
+
+        <RadioButton
+            android:text="Bomb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="-5dp"
+            android:id="@+id/opt_bomb"
+            android:onClick="opt_bomb"/>
+
+        <RadioButton
+            android:text="Fire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="-22dp"
+            android:id="@+id/opt_fire"
+            android:onClick="opt_fire"/>
+
+        <RadioButton
+            android:text="Spider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="-22dp"
+            android:id="@+id/opt_spider"
+            android:onClick="opt_spider"/>
+
+    </RadioGroup>
+
+</RelativeLayout>

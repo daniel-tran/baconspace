@@ -69,8 +69,6 @@
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/chip_down"
         android:id="@+id/cake"
-        android:scaleX="2"
-        android:scaleY="2"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
@@ -97,7 +95,7 @@
 
     <TextView
         android:text=
-            "Press the sides of the screen to move around\nGet ham for points, and shoes for more steps\nWhen you run out of steps, the game ends."
+            "Press the sides of the screen to move around\nGet ham for points, and shoes for more steps\n\nThe bomb makes you lose steps and points\nWhen you run out of steps, the game ends."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
@@ -114,6 +112,121 @@
         android:id="@+id/score_label"
         android:layout_below="@+id/upp"
         android:layout_centerHorizontal="true" />
+
+    <!--These are the extra shoes to use-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp"
+        android:id="@+id/shoe2"
+        android:layout_below="@+id/upp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp"
+        android:id="@+id/shoe3"
+        android:layout_below="@+id/upp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp"
+        android:id="@+id/shoe4"
+        android:layout_below="@+id/upp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp"
+        android:id="@+id/shoe5"
+        android:layout_below="@+id/upp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <!--These are the extra goals to use-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp"
+        android:id="@+id/goal2"
+        android:layout_below="@+id/upp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp"
+        android:id="@+id/goal3"
+        android:layout_below="@+id/upp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <!--These are the threats in use-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp"
+        android:id="@+id/threat1"
+        android:layout_below="@+id/upp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp"
+        android:id="@+id/threat2"
+        android:layout_below="@+id/upp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp"
+        android:id="@+id/threat3"
+        android:layout_below="@+id/upp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp"
+        android:id="@+id/threat4"
+        android:layout_below="@+id/upp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp"
+        android:id="@+id/threat5"
+        android:layout_below="@+id/upp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
 
 
 </RelativeLayout>
